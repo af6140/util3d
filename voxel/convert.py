@@ -1,6 +1,7 @@
 from __future__ import division
 import os
 import numpy as np
+import shutil
 
 _bv_path = os.path.join(
     os.path.realpath(os.path.dirname(__file__)), 'bin', 'binvox')
@@ -141,8 +142,9 @@ def obj_to_binvox(
     subprocess.call(args, stdout=_FNULL, stderr=subprocess.STDOUT)
     if not os.path.isfile(original_bv_path):
         raise IOError('No binvox file at %s' % original_bv_path)
-    os.rename(original_bv_path, binvox_path)
-
+    #os.rename(original_bv_path, binvox_path)
+    shutil.copy(original_bv_path, bivox_path)
+    os.remove(original_bv_path)
 
 def mesh_to_binvox(
         vertices, faces, binvox_path, voxel_dim, *args, **kwargs):
